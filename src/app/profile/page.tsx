@@ -143,7 +143,7 @@ if (status !== "authenticated") {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 text-5xl md:text-6xl font-bold bg-gradient-to-r from-fuchsia-500 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg"
         >
-          Your Profile
+          My Profile
         </motion.h1>
 
         <motion.div
