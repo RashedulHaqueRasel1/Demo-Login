@@ -199,12 +199,12 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword((s) => !s)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 hover:bg-white/10"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 hover:bg-white/10 cursor-pointer"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-white/70" />
+                      <EyeOff className="h-4 w-4 text-white/70 cursor-pointer" />
                     ) : (
-                      <Eye className="h-4 w-4 text-white/70" />
+                      <Eye className="h-4 w-4 text-white/70 cursor-pointer" />
                     )}
                   </button>
                 </div>
