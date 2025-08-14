@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Demo Login App — Next.js + NextAuth + TypeScript
 
-## Getting Started
+**Live Demo:** [https://demo-login-rho.vercel.app/](https://demo-login-rho.vercel.app/)
 
-First, run the development server:
+এই প্রোজেক্টটি একটি **Demo Login System**, যা **Next.js**, **TypeScript** এবং **NextAuth.js** ব্যবহার করে তৈরি করা হয়েছে।  
+এর মূল উদ্দেশ্য হলো **NextAuth Authentication Flow** সহজভাবে বোঝা এবং ব্যবহার শেখা।
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🔑 **NextAuth Authentication** (Credentials Provider)
+- 📄 **Protected Routes** — লগইন ছাড়া কিছু পেজ অ্যাক্সেস করা যাবে না
+- 🧾 **Profile Page** — লগইন করার পর ইউজারের তথ্য প্রদর্শন
+- 🎨 **Framer Motion Animations** — smooth ও modern UI transitions
+- 🛠 **TypeScript** — Type safety এবং পরিষ্কার কোড
+- 🌐 **Live Backend Connected** — রিয়েল API এর সাথে সংযুক্ত
+- ⚠ **Custom Error Page** — ভুল রুটে গেলে সুন্দর Error UI প্রদর্শন
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📜 How It Works
 
-To learn more about Next.js, take a look at the following resources:
+1. **Home Page**-এ **login credentials** (email & password) আগে থেকেই দেওয়া আছে।
+2. শুধু কপি করে **login form**-এ পেস্ট করুন এবং **Login** বাটনে ক্লিক করুন।
+3. লগইন সফল হলে ২ সেকেন্ড পর স্বয়ংক্রিয়ভাবে **My Profile** পেজে রিডিরেক্ট হবে।
+4. **Profile Page**-এ ইউজারের সব তথ্য দেখা যাবে।
+5. যদি ভুল রুটে যান, তবে **Custom Error Page** দেখাবে।
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Tech Stack
 
-## Deploy on Vercel
+- [Next.js 14](https://nextjs.org/) — React Framework
+- [TypeScript](https://www.typescriptlang.org/) — Strongly Typed JavaScript
+- [NextAuth.js](https://next-auth.js.org/) — Authentication System
+- [Framer Motion](https://www.framer.com/motion/) — Animation Library
+- [Tailwind CSS](https://tailwindcss.com/) — Styling Framework
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎯 Purpose
+এই প্রোজেক্টটি মূলত **learning/demo purpose** এর জন্য বানানো হয়েছে, যাতে:
+- NextAuth login flow বোঝা যায়
+- Protected routes তৈরি শেখা যায়
+- Profile data ফেচ করার প্রক্রিয়া দেখা যায়
+- Animation সহ সুন্দর UI তৈরি শেখা যায়
+- Error page কাস্টমাইজেশন বোঝা যায়
+
+---
+
+**Made with ❤️ using Next.js, TypeScript & NextAuth**
