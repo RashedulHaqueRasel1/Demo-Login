@@ -1,6 +1,6 @@
 # 🚀 Demo Login App — Next.js + NextAuth + TypeScript
 
-**Live Demo:** [https://demo-login-rho.vercel.app/]
+**Live Demo:** [Click Live Demo](https://demo-login-rho.vercel.app/)
 
 This project is a **Demo Login System** built with **Next.js**, **TypeScript**, and **NextAuth.js**.  
 Its main purpose is to explore and understand the **NextAuth authentication flow** in a simple and practical way.
