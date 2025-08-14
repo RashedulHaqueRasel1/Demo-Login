@@ -1,103 +1,254 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { motion } from "framer-motion";
+import { Mail, Lock, Eye, EyeOff, LogIn, Copy, CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Toaster, toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+export default function HomePage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [copiedField, setCopiedField] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    setLoading(true);
+    setError("");
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (res?.error) {
+      setError(res.error);
+    } else {
+      toast.success("Login successful!");
+      setTimeout(() => {
+        router.push("/profile");
+      }, 2000);
+    }
+  };
+
+  interface HandleCopyParams {
+    text: string;
+    field: "Email" | "Password";
+  }
+
+  const handleCopy = (text: HandleCopyParams["text"], field: HandleCopyParams["field"]) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    toast.success(`${field} copied!`);
+    setTimeout(() => setCopiedField(""), 1500);
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-slate-900 via-zinc-900 to-black">
+      {/* Glow blobs */}
+      <div className="pointer-events-none absolute inset-0">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.5, scale: 1 }}
+          transition={{ duration: 1.2 }}
+          className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-fuchsia-600/30 blur-3xl"
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.5, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
+          className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-cyan-500/30 blur-3xl"
+        />
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col lg:flex-row items-center justify-center gap-8 px-4 py-10">
+        
+        {/* Left Side - Home Page Welcome */}
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center lg:text-left max-w-md"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <h1 className="text-4xl font-bold text-white mb-4">
+            Welcome to <span className="text-fuchsia-400">Our App</span>
+          </h1>
+          <p className="text-white/70 mb-6">
+            Please log in to continue. You can use the demo account below to try it out instantly.
+          </p>
+
+          {/* Test Login Details */}
+          <Card className="border-white/10 bg-white/5 backdrop-blur-xl">
+            <CardHeader>
+              <CardTitle className="text-lg text-white">Test Login Details</CardTitle>
+              <CardDescription className="text-white/70">Click to copy</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-center justify-between bg-white/10 rounded-lg px-3 py-2">
+                <span className="text-white text-sm">sahed.bdcalling@gmail.com</span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="cursor-pointer text-white/70 hover:text-black"
+                  onClick={() => handleCopy("sahed.bdcalling@gmail.com", "Email")}
+                >
+                  {copiedField === "Email" ? (
+                    <CheckCircle2 className="h-4 w-4 text-green-400" />
+                  ) : (
+                    <Copy className="h-4 w-4 " />
+                  )}
+                </Button>
+              </div>
+              <div className="flex items-center justify-between bg-white/10 rounded-lg px-3 py-2">
+                <span className="text-white text-sm">123456</span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="cursor-pointer  text-white/70 hover:text-black"
+                  onClick={() => handleCopy("123456", "Password")}
+                >
+                  {copiedField === "Password" ? (
+                    <CheckCircle2 className="h-4 w-4 text-green-400" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Right Side - Login Form */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-md"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <Card className="border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-black/40">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-cyan-500 shadow-lg">
+                  <LogIn className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl tracking-tight text-white">
+                    Login
+                  </CardTitle>
+                  <CardDescription className="text-sm text-white/70">
+                    Enter your credentials to access your account
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {/* Email */}
+              <div className="grid gap-2">
+                <Label htmlFor="email" className="text-white">
+                  Email Address
+                </Label>
+                <div className="relative">
+                  <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-9 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus-visible:ring-fuchsia-500"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div className="grid gap-2">
+                <Label htmlFor="password" className="text-white">
+                  Password
+                </Label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50" />
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-9 pr-10 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus-visible:ring-fuchsia-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((s) => !s)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl p-2 hover:bg-white/10"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-white/70" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-white/70" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="remember"
+                    className="border-white/20 data-[state=checked]:bg-fuchsia-600 cursor-pointer"
+                  />
+                  <Label htmlFor="remember" className="text-white/80 cursor-pointer">
+                    Remember me
+                  </Label>
+                </div>
+                <Link
+                  href="#"
+                  className="text-sm text-fuchsia-300 hover:text-fuchsia-200"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+
+              {error && <p className="text-red-400 text-sm">{error}</p>}
+
+              <Button
+                onClick={handleLogin}
+                disabled={loading}
+                className="w-full h-11 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-cyan-500 text-white font-medium shadow-lg shadow-fuchsia-900/30 hover:opacity-90 cursor-pointer"
+              >
+                {loading ? "Logging in..." : (<><LogIn className="mr-2 h-4 w-4" /> Login</>)}
+              </Button>
+            </CardContent>
+
+            <CardFooter className="flex flex-col items-center gap-2">
+              <p className="text-xs text-white/50">
+                By logging in, you agree to our Terms & Privacy Policy
+              </p>
+            </CardFooter>
+          </Card>
+
+          <Toaster position="top-center" />
+        </motion.div>
+      </div>
     </div>
   );
 }
