@@ -50,4 +50,4 @@ This project was created **for learning/demo purposes**, to:
 
 ---
 
-**Made with ❤️ using Next.js, TypeScript & NextAuth**
+**Made with [Rashedul Haque Rasel](https://rashedul-haque-rasel.vercel.app/) using Next.js, TypeScript & NextAuth**
